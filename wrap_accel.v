@@ -10,7 +10,7 @@ module WrapAccel (
     output wire [ 7:0] print_char,
     output wire        print_valid,
 	 output wire [3:0] leds,
-	 output reg [3:0] seg7,
+	 output reg [15:0] seg7,
     input  wire clk,
     input  wire rst
 );
@@ -102,18 +102,24 @@ module WrapAccel (
     );
 	 
 	 assign leds[3:0] = read_state[3:0];
+	 
+	 always @(posedge clk) begin
+		if (rst) begin
+			seg7 <= 16'b0;
+		end else if (output_read_valid) begin
+			seg7 <= output_read_data[15:0];
+		end
+	end
 
     always @(posedge clk) begin
         if (rst) begin
             read_state <= 0;
             in_ctr <= 0;
             accel_active <= 0;
-				seg7 <= 0;
         end
 
         else if (read_state == 0) begin
             if (buffer_valid) begin
-					seg7 <= buff_value;
                 image_dim <= buff_value;
                 read_state <= 1;
             end
@@ -122,7 +128,6 @@ module WrapAccel (
         else if (read_state == 1) begin
             if (buffer_valid) begin
                 image_depth <= buff_value;
-					 seg7 <= buff_value;
                 in_ctr_max <= buff_value * image_dim * image_dim;
 					 in_ctr <= 0;
                 read_state <= 2;
@@ -137,7 +142,7 @@ module WrapAccel (
                 interface_write_en <= 1;
                 interface_write_addr <= interface_write_addr + 1;
                 interface_write_data <= buff_value;
-					 if (in_ctr == in_ctr_max) begin
+					 if (in_ctr + 1 == in_ctr_max) begin
 						read_state <= 4;
 					 end
             end else begin
@@ -191,7 +196,7 @@ module WrapAccel (
                 interface_write_en <= 1;
                 interface_write_addr <= interface_write_addr + 1;
                 interface_write_data <= buff_value;
-					 if (in_ctr == in_ctr_max) begin
+					 if (in_ctr + 1 == in_ctr_max) begin
 						read_state <= 9;
 					 end 
             end else begin

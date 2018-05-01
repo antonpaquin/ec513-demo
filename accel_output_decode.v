@@ -26,23 +26,23 @@ module AccelOutputDecode (
             print_valid <= 0;
             print_char <= 0;
         end else if (digit_ctr == 6) begin
-            print_char <= (hold_read / 1000);
+            print_char <= (hold_read / 1000) + "0";
             print_valid <= 1;
             digit_ctr <= 5;
         end else if (digit_ctr == 5) begin
-            print_char <= ((hold_read % 1000) / 100);
+            print_char <= ((hold_read % 1000) / 100) + "0";
             print_valid <= 1;
             digit_ctr <= 4;
         end else if (digit_ctr == 4) begin
-            print_char <= ((hold_read % 100) / 10);
+            print_char <= ((hold_read % 100) / 10) + "0";
             print_valid <= 1;
             digit_ctr <= 3;
         end else if (digit_ctr == 3) begin
-            print_char <= (hold_read % 10);
+            print_char <= (hold_read % 10) + "0";
             print_valid <= 1;
             digit_ctr <= 2;
         end else if (digit_ctr == 2) begin
-            print_char <= 10;
+            print_char <= 8'd13;
             print_valid <= 1;
             digit_ctr <= 1;
         end else if (digit_ctr == 1) begin

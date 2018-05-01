@@ -73,7 +73,7 @@ module main (
     wire [7:0] logic_char_data;
     wire       logic_char_valid;
 	 wire [3:0] accel_leds;
-	 wire [3:0] accel_seg;
+	 wire [15:0] accel_seg;
 	 
     WrapAccel wrap_accel (
         .key(rx_byte),
@@ -106,7 +106,7 @@ module main (
 	
 	seg_display sseg7 (
 	   .clk(clk_in),
-		.value({12'b0, accel_seg}),
+		.value({accel_seg}),
 		.seg(seg),
 		.an(an)
 	);

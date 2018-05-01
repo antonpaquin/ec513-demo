@@ -63,6 +63,26 @@ module Memory(
                 memory_b[ii] = 0;
             `endif // memory_init_dec
         end
+		  memory_a[0] = 18'd0;
+		  memory_a[1] = 18'd1;
+		  memory_a[2] = 18'd2;
+		  memory_a[3] = 18'd3;
+		  memory_a[4] = 18'd4;
+		  memory_a[5] = 18'd5;
+		  memory_a[6] = 18'd6;
+		  memory_a[7] = 18'd7;
+		  memory_a[8] = 18'd8;
+		  memory_a[9] = 18'd9;
+		  memory_b[0] = 18'd00;
+		  memory_b[1] = 18'd10;
+		  memory_b[2] = 18'd20;
+		  memory_b[3] = 18'd30;
+		  memory_b[4] = 18'd40;
+		  memory_b[5] = 18'd50;
+		  memory_b[6] = 18'd60;
+		  memory_b[7] = 18'd70;
+		  memory_b[8] = 18'd80;
+		  memory_b[9] = 18'd90;
     end
 
 endmodule
