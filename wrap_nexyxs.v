@@ -17,6 +17,7 @@
 `include "uart_tx.v"
 `include "uart_tx_buffer.v"
 `include "wrap_accel.v"
+`include "seg_display.v"
 
 module main (
 	input  wire       clk_in,          // 100 MHz (10 ns) clock in
@@ -25,7 +26,9 @@ module main (
 	input  wire       PS2KeyboardClk,  // Keyboard Clock Input
 	input  wire       RxD,             // UART RX Port
 	output wire       TxD,             // UART TX Port
-	output wire [7:0] led
+	output wire [7:0] led,
+	output wire [7:0] seg,
+	output wire [3:0] an
    );
 	    wire [7:0] uart_logic_tx_data;
     wire uart_logic_tx_valid;
@@ -70,6 +73,7 @@ module main (
     wire [7:0] logic_char_data;
     wire       logic_char_valid;
 	 wire [3:0] accel_leds;
+	 wire [3:0] accel_seg;
 	 
     WrapAccel wrap_accel (
         .key(rx_byte),
@@ -79,6 +83,7 @@ module main (
         .print_valid(logic_char_valid),
 		  
 		  .leds(accel_leds),
+		  .seg7(accel_seg),
 
         .clk(clk_in),
         .rst(rst)
@@ -99,6 +104,12 @@ module main (
         .rst(rst)
     );
 	
+	seg_display sseg7 (
+	   .clk(clk_in),
+		.value({12'b0, accel_seg}),
+		.seg(seg),
+		.an(an)
+	);
 	always @(posedge clk_in) begin
 		if (tx_wr_pre) tx_wr <= 1'b0; // reset tx_wr
 		if (rx_byte_pre == 8'h0D) begin

@@ -17,7 +17,7 @@
   <files>
     <file xil_pn:name="wrap_nexyxs.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="13"/>
-      <association xil_pn:name="Implementation" xil_pn:seqID="22"/>
+      <association xil_pn:name="Implementation" xil_pn:seqID="23"/>
     </file>
     <file xil_pn:name="kb_code_ascii_convert.v" xil_pn:type="FILE_VERILOG">
       <association xil_pn:name="BehavioralSimulation" xil_pn:seqID="26"/>
@@ -389,6 +389,7 @@
     <file xil_pn:name="writeback.v" xil_pn:type="FILE_VERILOG"/>
     <file xil_pn:name="memory.v" xil_pn:type="FILE_VERILOG"/>
     <file xil_pn:name="kb_buffer.v" xil_pn:type="FILE_VERILOG"/>
+    <file xil_pn:name="seg_display.v" xil_pn:type="FILE_VERILOG"/>
   </autoManagedFiles>
 
 </project>
